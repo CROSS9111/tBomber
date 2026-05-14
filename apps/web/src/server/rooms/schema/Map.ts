@@ -10,7 +10,7 @@ export default class Map extends Schema {
   cols: number;
 
   @type(['number'])
-  blockArr: number[]; // 箱（破壊可能）
+  blockArr: ArraySchema<number>; // 箱（破壊可能）
 
   constructor() {
     super();

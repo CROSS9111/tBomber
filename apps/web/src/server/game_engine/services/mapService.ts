@@ -38,10 +38,12 @@ export default class MapService {
     Matter.Composite.add(this.gameEngine.world, walls);
   }
 
-  createMapBlocks(rows: number, cols: number, blockArr: number[]) {
+  createMapBlocks(rows: number, cols: number, blockArr: ArrayLike<number>) {
     // ブロックが存在する index を取得
     const blockIndices: number[] = [];
-    blockArr.forEach((v, idx) => v === Constants.TILE_BLOCK_IDX && blockIndices.push(idx));
+    for (let idx = 0; idx < blockArr.length; idx++) {
+      if (blockArr[idx] === Constants.TILE_BLOCK_IDX) blockIndices.push(idx);
+    }
 
     // 配置するアイテムのリストを作成
     const items: Constants.ITEM_TYPES[] = [];

@@ -1,9 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // 旧 TS 4.x 時代の前提で書かれた既存コードの strict 警告を本番ビルドでブロックしない。
-  // 型チェックは IDE と `pnpm tsc --noEmit` で別途実施する。
-  typescript: { ignoreBuildErrors: true },
+  // ESLint は別 step (`pnpm lint`) で実施するのでビルド中の lint はスキップ。
   eslint: { ignoreDuringBuilds: true },
   // Phaser / rex プラグインはランタイムで `Phaser.GameObjects.X.prototype` を
   // 拡張するため、SWC のスコープホイスト/ミニファイで構造が壊れる。
