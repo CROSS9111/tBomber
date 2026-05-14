@@ -62,7 +62,7 @@ export default class GameRoom extends Room<GameRoomState> {
               };
               this.startGame()
                 .then(() => this.broadcast(Constants.NOTIFICATION_TYPE.GAME_START_INFO, data))
-                .catch((err) => console.log(err));
+                .catch((err) => console.error(err));
             }
           }
         }

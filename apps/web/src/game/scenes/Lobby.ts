@@ -289,7 +289,7 @@ export default class Lobby extends Phaser.Scene {
         await this.network.leaveRoom();
         this.enableLobbyButtons();
       })
-      .catch((err) => console.log(err));
+      .catch((err) => console.error(err));
   }
 
   private disableLobbyButtons() {

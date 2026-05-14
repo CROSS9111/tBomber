@@ -215,8 +215,7 @@ export default class EnemyService {
 
             targets.push({
               dimensionalMap: deathMap,
-              ratio:
-                (Constants.ENEMY_EVALUATION_RATIO_PER_STEP[gameStep][key] ?? 0) + extraRatio,
+              ratio: (Constants.ENEMY_EVALUATION_RATIO_PER_STEP[gameStep][key] ?? 0) + extraRatio,
             });
             break;
 

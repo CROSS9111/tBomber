@@ -47,7 +47,7 @@ export default class Network {
         : `${protocol}//${window.location.host}`;
     this.client = new Client(endpoint);
     this.syncClock(endpoint);
-    this.joinLobbyRoom().catch((err) => console.log(err));
+    this.joinLobbyRoom().catch((err) => console.error(err));
   }
 
   async joinLobbyRoom() {
