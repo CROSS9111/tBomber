@@ -1,0 +1,16 @@
+{
+  "name": "bom-bom-panic",
+  "version": "0.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.18.0",
+  "scripts": {
+    "dev": "pnpm --filter web dev",
+    "build": "pnpm --filter web build",
+    "start": "pnpm --filter web start",
+    "lint": "pnpm --filter web lint",
+    "lint:fix": "pnpm --filter web lint:fix",
+    "format": "pnpm --filter web format",
+    "format:check": "pnpm --filter web format:check",
+    "typecheck": "pnpm --filter web typecheck"
+  }
+}
