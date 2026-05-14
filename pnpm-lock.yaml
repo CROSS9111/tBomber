@@ -19,9 +19,6 @@ importers:
       '@faker-js/faker':
         specifier: ^7.6.0
         version: 7.6.0
-      '@unocss/reset':
-        specifier: ^0.48.0
-        version: 0.48.5
       colyseus:
         specifier: ^0.14.24
         version: 0.14.24
@@ -107,9 +104,6 @@ importers:
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.2(eslint@8.57.1)
-      phaser3-rex-plugins-types:
-        specifier: ^0.2.0
-        version: 0.2.0
       prettier:
         specifier: ^3.3.3
         version: 3.8.3
@@ -524,9 +518,6 @@ packages:
   '@types/uuid@9.0.8':
     resolution: {integrity: sha512-jg+97EGIcY9AGHJJRaaPVgetKDsrTgbRjQ5Msgjh/DQKEFl0DtyRr/VCOyD1T2R1MNeWPK/u7JoGhlDZnKBAfA==}
 
-  '@types/webfontloader@1.6.38':
-    resolution: {integrity: sha512-kUaF72Fv202suFx6yBrwXqeVRMx7hGtJTesyESZgn9sEPCUeDXm2p0SiyS1MTqW74nQP4p7JyrOCwZ7pNFns4w==}
-
   '@types/ws@7.4.7':
     resolution: {integrity: sha512-JQbbmxZTZehdc2iszGKs5oC3NFnjeay7mtAWrdt7qNtAVK0g19muApzAy4bm9byz79xa2ZnO/BOBC2R8RC5Lww==}
 
@@ -590,9 +581,6 @@ packages:
 
   '@ungap/structured-clone@1.3.1':
     resolution: {integrity: sha512-mUFwbeTqrVgDQxFveS+df2yfap6iuP20NAKAsBt5jDEoOTDew+zwLAOilHCeQJOVSvmgCX4ogqIrA0mnyr08yQ==}
-
-  '@unocss/reset@0.48.5':
-    resolution: {integrity: sha512-+JJT3Btj1oNX4XwKBDPRUYre3NYBNmi0PsC3tqkHN2VphJG0iZl91XNfsveLz8pVpDJPUDdLH4xsqh52WmxU1g==}
 
   '@unrs/resolver-binding-android-arm-eabi@1.11.1':
     resolution: {integrity: sha512-ppLRUgHVaGRWUx0R0Ut06Mjo9gBaBkg3v/8AxusGLhsIotbBLuRk51rAzqLC8gq6NyyAojEXglNjzf6R948DNw==}
@@ -1202,9 +1190,6 @@ packages:
 
   eventemitter3@4.0.7:
     resolution: {integrity: sha512-8guHBZCwKnFhYdHr2ysuRWErTwhoN2X8XELRlrRwpmfeY2jjuUN4taQMsULKUVo1K4DvZl+0pgfyoysHxvmvEw==}
-
-  eventemitter3@5.0.4:
-    resolution: {integrity: sha512-mlsTRyGaPBjPedk6Bvw+aqbsXDtoAyAzm5MO7JgU+yVRyMQ5O8bD4Kcci7BS85f93veegeCPkL8R4GLClnjLFw==}
 
   execa@1.0.0:
     resolution: {integrity: sha512-adbxcyWV46qiHyvSp50TKt05tB4tK3HcmF7/nxfAdhnox83seTDbwnaqKO4sXRy7roHAIFqJP/Rw/AuEbX61LA==}
@@ -1926,9 +1911,6 @@ packages:
 
   pathfinding@0.4.18:
     resolution: {integrity: sha512-R0TGEQ9GRcFCDvAWlJAWC+KGJ9SLbW4c0nuZRcioVlXVTlw+F5RvXQ8SQgSqI9KXWC1ew95vgmIiyaWTlCe9Ag==}
-
-  phaser3-rex-plugins-types@0.2.0:
-    resolution: {integrity: sha512-dNe65URYeZHPV2JK/7CsTHFzZJrUvnTpvPUDB/m5XMuBTLAZ1aTsWS0SZVs9/1aj9dvXEMdRTDbv+ljkHrWQxQ==}
 
   phaser3-rex-plugins@1.1.79:
     resolution: {integrity: sha512-eYTX1HJiFRuqiF4j79ZnfIJIBN2LtB0XbdYaEKiBiRh7GG7quUPmCeOBUwXq7BnV61ovt+uNgVrl2JBMfgRH2A==}
@@ -2823,8 +2805,6 @@ snapshots:
 
   '@types/uuid@9.0.8': {}
 
-  '@types/webfontloader@1.6.38': {}
-
   '@types/ws@7.4.7':
     dependencies:
       '@types/node': 20.19.41
@@ -2911,8 +2891,6 @@ snapshots:
       eslint-visitor-keys: 3.4.3
 
   '@ungap/structured-clone@1.3.1': {}
-
-  '@unocss/reset@0.48.5': {}
 
   '@unrs/resolver-binding-android-arm-eabi@1.11.1':
     optional: true
@@ -3681,8 +3659,6 @@ snapshots:
   eventemitter3@3.1.2: {}
 
   eventemitter3@4.0.7: {}
-
-  eventemitter3@5.0.4: {}
 
   execa@1.0.0:
     dependencies:
@@ -4456,12 +4432,6 @@ snapshots:
   pathfinding@0.4.18:
     dependencies:
       heap: 0.2.5
-
-  phaser3-rex-plugins-types@0.2.0:
-    dependencies:
-      '@types/webfontloader': 1.6.38
-      eventemitter3: 5.0.4
-      phaser: 3.55.2
 
   phaser3-rex-plugins@1.1.79:
     dependencies:
