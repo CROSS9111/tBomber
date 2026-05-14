@@ -6,4 +6,5 @@ dist/
 *.log
 .env
 .env.local
-.claude/
+.claude/*
+!.claude/settings.json
