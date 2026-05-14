@@ -11,6 +11,16 @@
     "lint:fix": "pnpm --filter web lint:fix",
     "format": "pnpm --filter web format",
     "format:check": "pnpm --filter web format:check",
-    "typecheck": "pnpm --filter web typecheck"
+    "typecheck": "pnpm --filter web typecheck",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "husky": "^9.1.7",
+    "lint-staged": "^15.2.10"
+  },
+  "lint-staged": {
+    "apps/web/**/*.{ts,tsx,js,jsx,json,md,css}": [
+      "prettier --write --ignore-path apps/web/.prettierignore --config apps/web/.prettierrc.json"
+    ]
   }
 }
