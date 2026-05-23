@@ -55,6 +55,7 @@ export default class MyPlayer extends Player {
     this.setBombType(player.bombType);
     this.setBombStrength(player.bombStrength);
     this.setMaxBombCount(player.maxBombCount);
+    this.setCanKick(player.canKick);
   }
 
   update(cursorKeys: NavKeys, network: Network) {

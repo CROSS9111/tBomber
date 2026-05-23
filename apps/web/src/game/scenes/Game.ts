@@ -228,6 +228,21 @@ export default class Game extends Phaser.Scene {
     this.removeObjectFromQueue(this.blockToRemoveQueue, (v: ServerBlock) => removeBlock(v));
     this.removeObjectFromQueue(this.itemToRemoveQueue, (v: ServerItem) => removeItem(v));
     this.updateBombCollision();
+    this.syncMovingBombs();
+  }
+
+  // 蹴られて移動中の爆弾を、サーバーの座標に追従させる
+  private syncMovingBombs() {
+    const bombs = this.network.room?.state.bombs;
+    if (bombs === undefined) return;
+    this.children.list.forEach((child: Phaser.GameObjects.GameObject) => {
+      if (!(child instanceof Bomb)) return;
+      const serverBomb = bombs.get(child.getId());
+      if (serverBomb === undefined) return;
+      if (child.x !== serverBomb.x || child.y !== serverBomb.y) {
+        child.moveTo(serverBomb.x, serverBomb.y);
+      }
+    });
   }
 
   private initNetworkEvents() {

@@ -38,6 +38,10 @@ export class Bomb extends Schema {
   @type('number')
   removedAt: number;
 
+  // 蹴られて移動中かどうか (クライアントは x/y に追従して描画する)
+  @type('boolean')
+  isMoving: boolean;
+
   constructor(
     x: number,
     y: number,
@@ -53,6 +57,7 @@ export class Bomb extends Schema {
     this.bombType = bombType;
     this.bombStrength = bombStrength;
     this.explodedState = false;
+    this.isMoving = false;
     // 同期を取るため、オブジェクトの生成を遅らせる
     this.createdAt = Date.now() + Constants.OBJECT_CREATION_DELAY;
     this.removedAt = this.createdAt + Constants.BOMB_EXPLOSION_TIME;

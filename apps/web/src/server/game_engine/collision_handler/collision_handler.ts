@@ -5,6 +5,16 @@ import GameEngine from '../../rooms/GameEngine';
 import { playerToItem } from './player';
 import { blastToBomb } from './blast';
 
+// プレイヤーの速度ベクトルから蹴る方向を判定する。ほぼ静止している場合は undefined
+function directionFromVelocity(v: Matter.Vector): Constants.DIRECTION_TYPE | undefined {
+  const THRESHOLD = 0.1;
+  if (Math.abs(v.x) < THRESHOLD && Math.abs(v.y) < THRESHOLD) return undefined;
+  if (Math.abs(v.x) >= Math.abs(v.y)) {
+    return v.x > 0 ? Constants.DIRECTION.RIGHT : Constants.DIRECTION.LEFT;
+  }
+  return v.y > 0 ? Constants.DIRECTION.DOWN : Constants.DIRECTION.UP;
+}
+
 export default function collisionHandler(
   engine: GameEngine,
   bodyA: Matter.Body,
@@ -76,6 +86,29 @@ export default function collisionHandler(
     // プレイヤーのHPを0にする
     player.damaged(player.hp);
     engine.playerService.diePlayer(player);
+  }
+
+  // PLAYER & BOMB (蹴る: 移動方向に爆弾を蹴り出す)
+  else if (isPlayer && isBomb) {
+    const playerBody = labelA === Constants.OBJECT_LABEL.PLAYER ? bodyA : bodyB;
+    const bombBody = labelA === Constants.OBJECT_LABEL.BOMB ? bodyA : bodyB;
+
+    const sessionId = engine.sessionIdByBodyId.get(playerBody.id);
+    if (sessionId === undefined) return;
+    const player = engine.state.getPlayer(sessionId);
+    if (player === undefined || player.isDead()) return;
+
+    // KICK アイテムを取得したプレイヤーだけが蹴れる
+    if (!player.canKick) return;
+
+    const bombId = engine.bombIdByBodyId.get(bombBody.id);
+    if (bombId === undefined) return;
+    const bomb = engine.state.bombs.get(bombId);
+    if (bomb === undefined) return;
+
+    const dir = directionFromVelocity(playerBody.velocity);
+    if (dir === undefined) return;
+    engine.bombService.kickBomb(bomb, dir, playerBody.position.x, playerBody.position.y);
   }
 
   // BLAST & BOMB

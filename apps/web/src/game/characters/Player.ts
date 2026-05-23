@@ -14,6 +14,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
   private bombType: Constants.BOMB_TYPES; // ボムの種類
   private bombStrength: number;
   private maxBombCount: number; // 設置できるボムの最大個数
+  private canKick: boolean = false; // 爆弾を蹴れるか (KICK アイテム取得で有効)
   private readonly sessionId: string; // サーバが一意にセットするセッションID
   private readonly hit_se;
   nameLabel!: Phaser.GameObjects.Container;
@@ -40,6 +41,7 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
     this.bombType = Constants.BOMB_TYPE.NORMAL;
     this.bombStrength = Constants.INITIAL_BOMB_STRENGTH;
     this.maxBombCount = Constants.INITIAL_SETTABLE_BOMB_COUNT;
+    this.canKick = false;
 
     this.setScale(1.3, 1);
     this.setRectangle(Constants.PLAYER_WIDTH, Constants.PLAYER_HEIGHT, {
@@ -180,6 +182,18 @@ export default class Player extends Phaser.Physics.Matter.Sprite {
   setMaxBombCount(maxBombCount: number): boolean {
     if (maxBombCount === this.maxBombCount) return false;
     this.maxBombCount = maxBombCount;
+    return true;
+  }
+
+  // 爆弾を蹴れるかを取得する
+  getCanKick(): boolean {
+    return this.canKick;
+  }
+
+  // 爆弾を蹴れるかを設定する
+  setCanKick(canKick: boolean): boolean {
+    if (this.canKick === canKick) return false;
+    this.canKick = canKick;
     return true;
   }
 
