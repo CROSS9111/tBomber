@@ -131,6 +131,7 @@ export default class Preloader extends Phaser.Scene {
     this.load.image(Constants.ITEM_TYPE.PLAYER_SPEED, 'assets/items/item_player_speed.png');
     this.load.image(Constants.ITEM_TYPE.HEART, 'assets/items/item_heart.png');
     this.load.image(Constants.ITEM_TYPE.PENETRATION_BOMB, 'assets/items/item_penetration_bomb.png');
+    this.load.image(Constants.ITEM_TYPE.KICK, 'assets/items/item_kick.png');
 
     // icon
     this.load.image(Config.ASSET_KEY_VOLUME_ON, 'assets/icons/volume_on.png');

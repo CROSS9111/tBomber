@@ -98,6 +98,9 @@ export default function collisionHandler(
     const player = engine.state.getPlayer(sessionId);
     if (player === undefined || player.isDead()) return;
 
+    // KICK アイテムを取得したプレイヤーだけが蹴れる
+    if (!player.canKick) return;
+
     const bombId = engine.bombIdByBodyId.get(bombBody.id);
     if (bombId === undefined) return;
     const bomb = engine.state.bombs.get(bombId);

@@ -346,6 +346,7 @@ export const ITEM_TYPE = {
   HEART: 'HEART', // 残機アップ
   PENETRATION_BOMB: 'PENETRATION_BOMB', // ブロックを貫通するボム
   PLAYER_SPEED: 'PLAYER_SPEED', // プレイヤーの移動速度アップ
+  KICK: 'KICK', // 爆弾を蹴れるようになる
 } as const;
 
 export type ITEM_TYPES = (typeof ITEM_TYPE)[keyof typeof ITEM_TYPE];
@@ -369,6 +370,7 @@ export const ITEM_PLACE_COUNT = {
   [ITEM_TYPE.HEART]: 3,
   [ITEM_TYPE.PENETRATION_BOMB]: 0,
   [ITEM_TYPE.PLAYER_SPEED]: 8,
+  [ITEM_TYPE.KICK]: 2,
 };
 
 /*
