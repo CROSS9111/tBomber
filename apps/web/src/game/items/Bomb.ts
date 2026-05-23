@@ -14,8 +14,9 @@ export default class Bomb extends Phaser.Physics.Matter.Sprite {
   private readonly id: string;
 
   // 誘爆時は状況によって爆弾が消えてしまい、座標やシーンが取得できなくなるため保存しておく
-  private readonly stableX: number; // 爆弾が消えても座標を保持するための変数
-  private readonly stableY: number; // 爆弾が消えても座標を保持するための変数
+  // 蹴られて移動する場合は moveTo() で更新される
+  private stableX: number; // 爆弾が消えても座標を保持するための変数
+  private stableY: number; // 爆弾が消えても座標を保持するための変数
   private readonly stableScene: Phaser.Scene; // 爆弾が消えてもシーンを保持するための変数
   private readonly bombType: Constants.BOMB_TYPES; // ボムの種類
   private readonly bombStrength: number; // 爆発の強さ
@@ -168,6 +169,11 @@ export default class Bomb extends Phaser.Physics.Matter.Sprite {
 
   explode() {
     if (this.isExploded) return;
+    // 蹴られた爆弾がマスの途中で爆発した場合に備え、最寄りのマス中心に揃える。
+    // (爆風スプライトの描画位置と範囲計算をグリッドに合わせ、範囲外参照クラッシュを防ぐ)
+    const aligned = Bomb.getSettablePosition(this.stableX, this.stableY);
+    this.stableX = aligned.x;
+    this.stableY = aligned.y;
     this.blastPointSprites.forEach((sprite) => {
       sprite.destroy();
     });
@@ -284,6 +290,21 @@ export default class Bomb extends Phaser.Physics.Matter.Sprite {
 
   public getIsExploded(): boolean {
     return this.isExploded;
+  }
+
+  getId(): string {
+    return this.id;
+  }
+
+  // サーバーで蹴られて移動した爆弾を、クライアント側でも追従させる
+  moveTo(x: number, y: number) {
+    if (this.isExploded) return;
+    this.setPosition(x, y);
+    // 爆風は stableX/stableY を基準に描画されるため、最終位置で爆発するよう更新する
+    this.stableX = x;
+    this.stableY = y;
+    // 移動を始めたら、設置時に表示した爆風範囲プレビュー (動かないので位置がズレる) を消す
+    this.blastPointSprites.splice(0).forEach((sprite) => sprite.destroy());
   }
 }
 

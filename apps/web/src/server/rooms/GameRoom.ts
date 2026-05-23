@@ -117,6 +117,9 @@ export default class GameRoom extends Room<GameRoomState> {
         // 爆弾の衝突判定の更新（プレイヤーが降りた場合は判定を変える)
         this.engine.bombService.updateBombCollision();
 
+        // 蹴られて移動中の爆弾を進める (爆発判定より前に位置を確定させる)
+        this.engine.bombService.updateMovingBombs();
+
         // 爆弾の処理
         this.objectCreateHandler(this.state.getBombToCreateQueue(), (bomb) =>
           this.createBombEvent(bomb),

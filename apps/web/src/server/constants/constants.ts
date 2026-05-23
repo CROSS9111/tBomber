@@ -310,6 +310,9 @@ export const BOMB_EXPLOSION_TIME = 2330;
 // 爆弾が誘爆する時の遅延時間(ms)
 export const BOMB_DETONATION_DELAY = 50;
 
+// 蹴られた爆弾の移動速度(px/frame)。プレイヤー速度(2.5〜5)より速くする
+export const KICK_BOMB_SPEED = 8;
+
 // 爆風の衝突判定の割合
 export const BLAST_COLLISION_RATIO_X = 0.4;
 export const BLAST_COLLISION_RATIO_Y = 0.7;
