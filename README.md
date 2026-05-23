@@ -3,6 +3,14 @@
 オンライン対戦ボンバーマン風ゲーム [recursion-team-v/bomb](https://github.com/recursion-team-v/bomb) を、
 **Next.js (App Router) + Colyseus** を 1 プロセスに統合する形にリファクタリングしたもの。
 
+## 元プロジェクトについて
+
+本プロジェクトは、チームで約 1.5 ヶ月かけて開発されたオンライン対戦ボンバーマン風ゲーム「ボムボムパニック」を元にしています。
+開発の経緯・設計（サーバー権威型アーキテクチャ、ネットワーク遅延を考慮した爆発・連鎖の同期、influence map を用いた AI など）については、作者による解説記事を参照してください。
+
+- 元記事: [オンライン対戦ができるボンバーマン風なゲームを作った（ボムボムパニック）](https://blog.framinal.life/entry/bombompanic)（著者: lirlia）
+- 元リポジトリ: [recursion-team-v/bomb](https://github.com/recursion-team-v/bomb)
+
 ## セットアップ
 
 ```bash
