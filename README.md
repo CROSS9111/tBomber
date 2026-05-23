@@ -1,4 +1,8 @@
-# Bom Bom Panic — Next.js 統合版
+# FuzeFur — Next.js 統合版
+
+> **FuzeFur** はこのプロジェクトのプロダクト名（ブランド）です。
+> 「インストール不要・URL1本で即対戦できる爆弾アクション対戦ゲーム」として展開予定。
+> 元となったオンライン対戦ゲーム「ボムボムパニック」については「元プロジェクトについて」を参照してください。
 
 オンライン対戦ボンバーマン風ゲーム [recursion-team-v/bomb](https://github.com/recursion-team-v/bomb) を、
 **Next.js (App Router) + Colyseus** を 1 プロセスに統合する形にリファクタリングしたもの。
