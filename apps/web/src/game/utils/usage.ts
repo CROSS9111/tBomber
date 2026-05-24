@@ -142,5 +142,22 @@ export const createItemUsage = function (scene: Phaser.Scene, x: number, y: numb
       .setScale(0.8)
       .setFontFamily('PressStart2P'),
   );
-  group.add(scene.add.text(x + 60, y + 190, 'Items').setFontFamily('PressStart2P'));
+
+  group.add(scene.add.image(x, y + 200, Constants.ITEM_TYPE.KICK).setScale(0.4));
+  group.add(
+    scene.add
+      .text(x + 30, y + 190, 'Kick Bomb')
+      .setScale(0.8)
+      .setFontFamily('PressStart2P'),
+  );
+
+  group.add(scene.add.image(x, y + 250, Constants.ITEM_TYPE.PENETRATION_BOMB).setScale(0.4));
+  group.add(
+    scene.add
+      .text(x + 30, y + 240, 'Penetration')
+      .setScale(0.8)
+      .setFontFamily('PressStart2P'),
+  );
+
+  group.add(scene.add.text(x + 60, y + 290, 'Items').setFontFamily('PressStart2P'));
 };

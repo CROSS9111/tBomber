@@ -310,6 +310,9 @@ export const BOMB_EXPLOSION_TIME = 2330;
 // 爆弾が誘爆する時の遅延時間(ms)
 export const BOMB_DETONATION_DELAY = 50;
 
+// 蹴られた爆弾の移動速度(px/frame)。プレイヤー速度(2.5〜5)より速くする
+export const KICK_BOMB_SPEED = 8;
+
 // 爆風の衝突判定の割合
 export const BLAST_COLLISION_RATIO_X = 0.4;
 export const BLAST_COLLISION_RATIO_Y = 0.7;
@@ -343,6 +346,7 @@ export const ITEM_TYPE = {
   HEART: 'HEART', // 残機アップ
   PENETRATION_BOMB: 'PENETRATION_BOMB', // ブロックを貫通するボム
   PLAYER_SPEED: 'PLAYER_SPEED', // プレイヤーの移動速度アップ
+  KICK: 'KICK', // 爆弾を蹴れるようになる
 } as const;
 
 export type ITEM_TYPES = (typeof ITEM_TYPE)[keyof typeof ITEM_TYPE];
@@ -364,8 +368,9 @@ export const ITEM_PLACE_COUNT = {
   [ITEM_TYPE.BOMB_POSSESSION_UP]: 12,
   [ITEM_TYPE.BOMB_STRENGTH]: 12,
   [ITEM_TYPE.HEART]: 3,
-  [ITEM_TYPE.PENETRATION_BOMB]: 0,
+  [ITEM_TYPE.PENETRATION_BOMB]: 2,
   [ITEM_TYPE.PLAYER_SPEED]: 8,
+  [ITEM_TYPE.KICK]: 2,
 };
 
 /*

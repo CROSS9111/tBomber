@@ -28,6 +28,10 @@ export function playerToItem(player: Player, item: Item, engine: GameEngine) {
       player.setBombType(Constants.BOMB_TYPE.PENETRATION);
       break;
 
+    case Constants.ITEM_TYPE.KICK:
+      player.setCanKick(true);
+      break;
+
     default:
       return;
   }

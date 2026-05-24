@@ -127,11 +127,18 @@ export function calcBlastRangeFromDirection(
   let size = 0;
 
   for (let i = 1; i <= power; i++) {
-    let checkTile = 0;
-    if (direction === Constants.DIRECTION.UP) checkTile = map[y - i][x];
-    if (direction === Constants.DIRECTION.DOWN) checkTile = map[y + i][x];
-    if (direction === Constants.DIRECTION.LEFT) checkTile = map[y][x - i];
-    if (direction === Constants.DIRECTION.RIGHT) checkTile = map[y][x + i];
+    let tx = x;
+    let ty = y;
+    if (direction === Constants.DIRECTION.UP) ty = y - i;
+    else if (direction === Constants.DIRECTION.DOWN) ty = y + i;
+    else if (direction === Constants.DIRECTION.LEFT) tx = x - i;
+    else if (direction === Constants.DIRECTION.RIGHT) tx = x + i;
+
+    // マップ範囲外 (端や、蹴られた爆弾がマスの途中で爆発した場合など) は
+    // 壁とみなしてループを停止する。境界チェックなしで map[ty][tx] を参照すると
+    // undefined アクセスでクラッシュするため必須。
+    const checkTile = map[ty]?.[tx];
+    if (checkTile === undefined) break;
 
     if (checkTile === 0) size++;
     if (checkTile === 1) {

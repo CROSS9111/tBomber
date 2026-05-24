@@ -27,6 +27,7 @@ export default class GameHeader extends Phaser.Scene {
   private textSpeed!: Phaser.GameObjects.Text;
   private network!: Network;
   private imgBomb!: Phaser.GameObjects.Image;
+  private imgKick!: Phaser.GameObjects.Image;
   private startTimer!: boolean;
 
   constructor() {
@@ -68,6 +69,14 @@ export default class GameHeader extends Phaser.Scene {
       ])
       .setDepth(2000);
 
+    // 蹴り (KICK) は ON/OFF の能力なので、取得した時だけブーツアイコンを表示する
+    this.imgKick = this.add
+      .image(750, 10, Constants.ITEM_TYPE.KICK)
+      .setScale(0.5)
+      .setOrigin(0, 0)
+      .setDepth(2000)
+      .setVisible(false);
+
     this.add.volumeIcon(this, this.width - 100, -13, isPlay());
   }
 
@@ -93,6 +102,9 @@ export default class GameHeader extends Phaser.Scene {
     this.textBombCount.setText(`×${this.player.getItemCountOfBombCount()}`);
     this.textBombStrength.setText(`×${this.player.getItemCountOfBombStrength()}`);
     this.textSpeed.setText(`×${this.player.getItemCountOfSpeed()}`);
+
+    // KICK を取得済みの時だけブーツアイコンを表示する
+    this.imgKick.setVisible(this.player.getCanKick());
   }
 
   updateTextTimer(timeLimit: number) {

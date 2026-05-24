@@ -60,6 +60,10 @@ export default class Player extends Schema {
   @type('number')
   maxBombCount: number;
 
+  // 爆弾を蹴れるか (KICK アイテム取得で有効化)
+  @type('boolean')
+  canKick: boolean = false;
+
   // 取得したアイテムの種類と個数
   getItemMap: Map<Constants.ITEM_TYPES, number>;
 
@@ -126,6 +130,16 @@ export default class Player extends Schema {
   // プレイヤーが死んでいるかどうかを返します
   isDead(): boolean {
     return this.hp <= 0;
+  }
+
+  // 爆弾を蹴れるようにする
+  setCanKick(v: boolean) {
+    this.canKick = v;
+  }
+
+  // 爆弾を蹴れるかを返す
+  getCanKick(): boolean {
+    return this.canKick;
   }
 
   // 配置するボムの種類を変更する
@@ -237,5 +251,6 @@ export default class Player extends Schema {
     this.speed = Constants.MAX_PLAYER_SPEED;
     this.maxBombCount = Constants.MAX_SETTABLE_BOMB_COUNT;
     this.bombStrength = Constants.MAX_BOMB_STRENGTH;
+    this.canKick = true;
   }
 }

@@ -142,24 +142,66 @@ export default class GameResult extends Phaser.Scene {
       }
     }
 
-    const buttons = createButtons(this, Constants.WIDTH * 0.8, Constants.HEIGHT * 0.9, [
+    const buttons = createButtons(this, Constants.WIDTH * 0.82, Constants.HEIGHT * 0.85, [
+      createButton(this, 'Play Again', Constants.GREEN),
       createButton(this, 'Go to Lobby', Constants.LIGHT_RED),
     ]);
     buttons.on(
       'button.click',
-      async () => {
-        this.se1?.play();
-        await this.network.joinLobbyRoom();
-        this.bgm.stop();
-        this.scene.get(Config.SCENE_NAME_GAME).scene.stop(); // ゲームシーンを shutdown する
-        this.scene.stop();
-        this.scene.start(Config.SCENE_NAME_LOBBY, {
-          network: this.network,
-          playerName: data.playerName,
-        });
+      (_button: Phaser.GameObjects.GameObject, index: number) => {
+        if (index === 0) {
+          void this.handlePlayAgain(data.playerName);
+        } else {
+          void this.handleGoToLobby(data.playerName);
+        }
       },
       this,
     );
+  }
+
+  // 「もう1回」: 新しいルームを作って即再戦する (摩擦ゼロのリマッチ)
+  private async handlePlayAgain(playerName: string) {
+    this.se1?.play();
+    this.bgm.stop();
+
+    // 念のため前の試合のシーンを停止しておく (通常は終了処理で stop 済み)
+    this.scene.get(Config.SCENE_NAME_GAME).scene.stop();
+    this.scene.get(Config.SCENE_NAME_GAME_HEADER).scene.stop();
+
+    // 新しい試合が始まったら Game シーンへ遷移する
+    this.network.onGameStartInfo(async (info) => {
+      this.scene.stop();
+      this.scene.start(Config.SCENE_NAME_GAME, {
+        network: this.network,
+        serverTimer: info.serverTimer,
+      });
+      this.scene.start(Config.SCENE_NAME_GAME_HEADER, {
+        network: this.network,
+        serverTimer: info.serverTimer,
+      });
+    });
+
+    // 新規ルームを作成して即 READY。サーバーが bot を補充してゲーム開始する。
+    await this.network.createAndJoinCustomRoom({
+      name: playerName,
+      password: null,
+      autoDispose: true,
+      playerName,
+    });
+    this.network.sendPlayerGameState(Constants.PLAYER_GAME_STATE.READY);
+  }
+
+  // 「ロビーに戻る」
+  private async handleGoToLobby(playerName: string) {
+    this.se1?.play();
+    await this.network.joinLobbyRoom();
+    this.bgm.stop();
+    this.scene.get(Config.SCENE_NAME_GAME).scene.stop(); // ゲームシーンを shutdown する
+    this.scene.stop();
+    this.scene.start(Config.SCENE_NAME_LOBBY, {
+      network: this.network,
+      playerName,
+    });
   }
 
   generatePlayerContainer(x: number, y: number, name: string, character: string) {
