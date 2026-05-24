@@ -1,3 +1,5 @@
+'use client';
+
 import dynamic from 'next/dynamic';
 
 const PhaserMount = dynamic(() => import('@/components/PhaserMount'), {
