@@ -32,9 +32,9 @@ pnpm build && pnpm start  # 本番モード
 | コマンド | 用途 |
 |---|---|
 | `pnpm dev` | tsx watch で server.ts + Next.js dev を 1 プロセス起動 |
-| `pnpm build` | `next build` |
+| `pnpm build` | `next build --webpack` (Turbopack でなく webpack。Phaser externals / rex の minify 制御に必須) |
 | `pnpm start` | 本番モードで tsx 経由 server.ts を起動 |
-| `pnpm lint` / `pnpm lint:fix` | ESLint (next/core-web-vitals + prettier) |
+| `pnpm lint` / `pnpm lint:fix` | ESLint CLI (flat config: next/core-web-vitals + prettier) |
 | `pnpm format` / `pnpm format:check` | Prettier (整形 / 差分検出) |
 | `pnpm typecheck` | `tsc --noEmit` を Next.js 用 + server 用の両 tsconfig で |
 
@@ -47,7 +47,8 @@ bom/
 ├── apps/
 │   └── web/                      # Next.js 単一アプリ
 │       ├── server.ts             # カスタムサーバー (Next + Colyseus)
-│       ├── next.config.mjs       # webpack alias (timesync の promise 抑止)
+│       ├── next.config.mjs       # webpack: Phaser externals + Terser で rex を minify 保護
+│       ├── eslint.config.mjs     # ESLint flat config (next/core-web-vitals + prettier)
 │       ├── tsconfig.json         # Next.js (bundler モジュール解決)
 │       ├── tsconfig.server.json  # server.ts 用 (CommonJS)
 │       ├── public/               # 旧 frontend/public をそのまま
@@ -63,7 +64,7 @@ bom/
 
 | 項目 | 旧 | 新 |
 |---|---|---|
-| ビルド/開発 | Vite | Next.js 14 (App Router) |
+| ビルド/開発 | Vite | Next.js 16 (App Router, webpack ビルド) |
 | サーバー起動 | `backend/src/index.ts` (Express + Colyseus 単独) | `apps/web/server.ts` (Next + Colyseus を同一 HTTP サーバーに mount) |
 | パッケージマネージャ | npm × 2 リポジトリ | pnpm workspaces |
 | frontend → backend のクロス参照 | `'../../backend/src/...'` | TS path alias `'@server/...'` |
