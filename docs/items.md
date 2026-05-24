@@ -13,11 +13,11 @@ FuzeFur のゲーム内アイテムの一覧と仕組み。定義の実体は
 | `PLAYER_SPEED` | 移動速度 +0.25 | 0.25 | 8 | ✓ Speed Up | `item_player_speed.png` | `Player.speed` |
 | `HEART` | HP +1 | 1 | 3 | ✓ HP Up | `item_heart.png` | `Player.hp` |
 | `KICK` | 爆弾を蹴れるようになる | ON/OFF | 2 | ✓ Kick Bomb | `item_kick.png` ※暫定アート | `Player.canKick` |
-| `PENETRATION_BOMB` | 設置する爆弾が貫通爆弾になる | ON/OFF | **0（無効）** | ✗ | `item_penetration_bomb.png` | `Player.bombType` |
+| `PENETRATION_BOMB` | 設置する爆弾が貫通爆弾になる（破壊可能ブロックを貫通、壁では停止） | ON/OFF | 2 | ✓ Penetration | `item_penetration_bomb.png` | `Player.bombType` |
 | `NONE` | 効果なし（ブロックの中身が空） | - | 0 | - | - | - |
 
 - **配置数** = `ITEM_PLACE_COUNT`。破壊可能ブロックの中にこの数だけ仕込まれる（1試合あたり）。
-- **`PENETRATION_BOMB` は配置数 0 のため通常プレイでは出現しない**（定義のみ残存）。
+- **`PENETRATION_BOMB`（貫通ボム）**: 取得すると以降の設置爆弾が貫通爆弾になる。爆風が**破壊可能ブロックを貫通**して威力(`bombStrength`)の届く範囲のブロックをまとめて破壊する。**壁では停止**する（範囲計算は `blastService.calcBlastRangeFromDirection`。ブロック=1は貫通継続、壁=2で break）。
 - **`KICK` のアイコンは暫定プレースホルダー**（96×96 / オレンジのブーツ）。正式アートは後日差し替え予定。
 
 ## 上限・初期値（`constants.ts`）
