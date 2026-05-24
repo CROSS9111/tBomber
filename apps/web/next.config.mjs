@@ -3,8 +3,6 @@ import TerserPlugin from 'terser-webpack-plugin';
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  // ESLint は別 step (`pnpm lint`) で実施するのでビルド中の lint はスキップ。
-  eslint: { ignoreDuringBuilds: true },
   webpack: (config, { isServer }) => {
     // timesync の dist 版は require('promise') を含むが、
     // モダン環境では window.Promise を使うので解決を抑止する。
