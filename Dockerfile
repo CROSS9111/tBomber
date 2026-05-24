@@ -2,7 +2,7 @@
 # 統合サーバー (Next.js + Colyseus) 用 Dockerfile
 # multi-stage build で本番イメージは tsx + .next/ + node_modules の最小構成に保つ
 
-ARG NODE_VERSION=20-alpine
+ARG NODE_VERSION=22-alpine
 
 # ===== deps: 依存関係を別レイヤで =====
 FROM node:${NODE_VERSION} AS deps
