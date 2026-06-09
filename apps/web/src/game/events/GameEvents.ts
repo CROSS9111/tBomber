@@ -20,4 +20,6 @@ export enum Event {
   BLAST_ADDED = 'blast-added',
   BLAST_REMOVED = 'blast-removed',
   NAME_CHANGE = 'name-change',
+  CHAT_MESSAGE_RECEIVED = 'chat-message-received',
+  PLAYER_CHARACTER_CHANGED = 'player-character-changed',
 }

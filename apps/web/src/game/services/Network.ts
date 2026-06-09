@@ -27,6 +27,11 @@ export interface IGameStartInfo {
   serverTimer: ServerTimer;
 }
 
+export interface IChatMessage {
+  playerName: string;
+  text: string;
+}
+
 export default class Network {
   private readonly client: Client;
   private ts!: TimeSync;
@@ -100,8 +105,16 @@ export default class Network {
     });
 
     this.room.state.players.onAdd = (player: ServerPlayer, sessionId: string) => {
-      if (sessionId === this.mySessionId) return;
-      gameEvents.emit(Event.PLAYER_JOINED_ROOM, player, sessionId);
+      if (sessionId !== this.mySessionId) {
+        // 他プレイヤーのキャラクター変更を監視
+        player.onChange = (changes: any[]) => {
+          const charChange = changes.find((c: any) => c.field === 'character');
+          if (charChange) {
+            gameEvents.emit(Event.PLAYER_CHARACTER_CHANGED, sessionId, charChange.value as string);
+          }
+        };
+        gameEvents.emit(Event.PLAYER_JOINED_ROOM, player, sessionId);
+      }
     };
 
     this.room.state.players.onRemove = (player: ServerPlayer, sessionId: string) => {
@@ -152,6 +165,10 @@ export default class Network {
       const player = this.room?.state.players.get(sessionId);
       if (player === undefined) return;
       gameEvents.emit(Event.PLAYER_IS_READY, player);
+    });
+
+    this.room.onMessage(Constants.NOTIFICATION_TYPE.CHAT_MESSAGE, (data: IChatMessage) => {
+      gameEvents.emit(Event.CHAT_MESSAGE_RECEIVED, data);
     });
   }
 
@@ -234,6 +251,10 @@ export default class Network {
     gameEvents.on(Event.PLAYER_IS_READY, callback, context);
   }
 
+  onChatMessage(callback: (data: IChatMessage) => void, context?: any) {
+    gameEvents.on(Event.CHAT_MESSAGE_RECEIVED, callback, context);
+  }
+
   // シーンを切り替える度に既に存在するイベントリスナーが新しく追加されてしまうため、毎回消す
   removeAllEventListeners() {
     gameEvents.removeAllListeners();
@@ -252,6 +273,21 @@ export default class Network {
   // 自分のゲーム状態を送る
   sendPlayerGameState(state: Constants.PLAYER_GAME_STATE_TYPE) {
     this.room?.send(Constants.NOTIFICATION_TYPE.PLAYER_GAME_STATE, state);
+  }
+
+  sendChatMessage(text: string) {
+    this.room?.send(Constants.NOTIFICATION_TYPE.CHAT_MESSAGE, { text });
+  }
+
+  sendCharacterSelect(character: string) {
+    this.room?.send(Constants.NOTIFICATION_TYPE.CHARACTER_SELECT, { character });
+  }
+
+  onPlayerCharacterChanged(
+    callback: (sessionId: string, character: string) => void,
+    context?: any,
+  ) {
+    gameEvents.on(Event.PLAYER_CHARACTER_CHANGED, callback, context);
   }
 
   // デバッグ用

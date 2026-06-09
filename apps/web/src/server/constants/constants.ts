@@ -51,6 +51,12 @@ export const NOTIFICATION_TYPE = {
   // プレイヤーが準備できたことを broadcast するためのタイプ
   PLAYER_IS_READY: 4,
 
+  // ロビーチャットメッセージ
+  CHAT_MESSAGE: 5,
+
+  // キャラクター選択
+  CHARACTER_SELECT: 6,
+
   // ゲームの開始に関する情報を通知するためのタイプ
   GAME_START_INFO: 10,
 
